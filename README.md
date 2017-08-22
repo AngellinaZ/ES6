@@ -1,5 +1,5 @@
 # ES6
-* 参考SimplyWenjing/ES6思维导图整理
+* 参考![SimplyWenjing/ES6](https://github.com/Especializa/es6)思维导图整理
 * babel转码
 
 ## let
