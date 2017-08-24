@@ -74,3 +74,10 @@ console.log(arguments.length);
 }
 
 msg 
+
+/*String.raw(): 模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。*/
+String.raw({ raw: 'test' }, 0, 1, 2);
+// 't0e1s2t'
+
+// 等同于
+String.raw({ raw: ['t','e','s','t'] }, 0, 1, 2);  ?????????
