@@ -14,3 +14,6 @@
 
 ## 字符串的扩展
 ![字符串的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/String.png)
+
+## 数值的扩展
+![数值的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Number.png)
