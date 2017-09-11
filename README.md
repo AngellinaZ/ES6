@@ -20,3 +20,6 @@
 
 ## 数组的扩展
 ![数组的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Array.png)
+
+## 对象的扩展
+![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Object.png)
