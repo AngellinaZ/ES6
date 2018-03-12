@@ -23,3 +23,20 @@
 
 ## 对象的扩展
 ![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Object.png)
+
+## Promise
+```js
+const promise = new Promise ((resolve, rereject) => {
+  if (/* 异步操作成功 */){
+    return resolve(value);
+  } else {
+    return reject(error);
+  }
+})
+
+promise.then((value) => {
+  // success
+}, (error) => {
+  // failure
+});
+```
