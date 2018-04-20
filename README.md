@@ -1,4 +1,4 @@
-# ES6
+﻿# ES6
 * 参考[SimplyWenjing/ES6](https://github.com/SimplyWenjing/ES6)思维导图整理
 * babel转码
 
@@ -40,3 +40,5 @@ promise.then((value) => {
   // failure
 });
 ```
+![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.png)
+
