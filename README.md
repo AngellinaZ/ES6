@@ -1,6 +1,4 @@
 ﻿# ES6
-* 参考[SimplyWenjing/ES6](https://github.com/SimplyWenjing/ES6)思维导图整理
-* babel转码
 
 ## let
 ![let](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/let.png)
@@ -24,6 +22,7 @@
 ## 对象的扩展
 ![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Object.png)
 
+***
 ## Promise
 ```js
 const promise = new Promise ((resolve, rereject) => {
@@ -81,6 +80,7 @@ rest参数和arguments对象的区别
 (function(a, ...b) {}).length // 1
 ```
 
+***
 ## 模板字符串
 **基础用法**
 ```js
@@ -132,7 +132,7 @@ console.log(message1);
     <li>2</li>
   </ul
 */
-//map() 返回一个数组 [<li>1</li>, <li>2</li>]， 为了防止逗号的产生，可先用join() 将数组拼接为字符串
+//map() 返回一个数组 [<li>1</li>, <li>2</li>]， 为了防止逗号的产生，可先用join('') 将数组拼接为字符串
 //当大括号中的值不是字符串时，会将其转为字符串，比如一个数组 [1, 2, 3] 就会被转为 1,2,3 ， 逗号就是这么出现的
 
 ```
@@ -159,28 +159,106 @@ function fun(literals, v1, v2) {
 }
 ```
 
+***
+## 箭头函数
 
+(参考：讶羽)[https://github.com/mqyqingfeng/Blog/issues/85]
 
+### 基本
+```js
+let fun = value => value;
 
+//等价于
+let fun = function (value) {
+	return value
+};
 
+//多个参数
+let fun = (value, num) => value * num;
 
+//返回对象
+let fun = (value, num) => ({total: value * num});
 
+//变量解构
+let fun = ({value, num}) => ({total: value * num});
+let result = fun({
+	value: 10,
+	num: 10
+})
+console.log(result); //{total: 100}
+```
 
+### 区别
 
+**1. 没有this**
 
+箭头函数没有this， 所以需要通过作用域链来确定this的值， this绑定的就是最近一层的非箭头函数的this值
 
+**2.没有 arguments**
 
+箭头函数没有自己的 arguments 对象，但可以访问外围函数的 arguments 对象
+```js
+function fun() {
+	return () => arguments[0]
+};
+let res = fun(1);
+console.log(res); //1
+```
 
+可以通过命名参数或者 rest 参数的形式访问参数:
+```js
+let fun = (...arg) => arg
+```
 
+**3. 不能通过 new 关键字调用**
 
+JavaScript函数内部有两个内部方法： [[call]] 和 [[Construct]]
 
+通过 new 调用函数时，执行 [[Construct]] 方法，创建一个实例对象， 再执行函数体，将 this 绑定到实例上。
 
+当直接调用时， 执行[[call]]方法，直接执行函数体。
 
+箭头函数并没有 [[Construct]] 方法，不能被用作构造函数，如果通过 new 的方式调用，会报错。
 
+```
+var Foo = () => {};
+var foo = new Foo(); // TypeError: Foo is not a constructor
+```
 
+**4. 没有 new.target**
 
+因为不能通过 new 调用，也就没有 new.target的值  (阮一峰： new.target)[http://es6.ruanyifeng.com/#docs/class#new-target-%E5%B1%9E%E6%80%A7]
 
+**5. 没有原型**
 
+由于不能使用 new 调用箭头函数，所以也没有构建原型的需求，于是箭头函数也不存在 prototype 这个属性。
 
+```js
+var Foo = () => {};
+console.log(Foo.prototype); // undefined
+```
 
+**6. 没有 super**
+
+### 总结
+
+关于箭头函数，引用 MDN 的介绍就是：
+> An arrow function expression has a shorter syntax than a function expression and does not have its own this, arguments, super, or new.target. These function expressions are best suited for non-method functions, and they cannot be used as constructors.
+
+什么是 non-method functions? 非方法函数
+
+方法： 一个函数作为一个对象的属性值。
+```js
+var obj = {
+  i: 10,
+  b: () => console.log(this.i, this),
+  c: function() {
+    console.log( this.i, this)
+  }
+}
+obj.b();
+// undefined Window
+obj.c();
+// 10, Object {...}
+```
 
