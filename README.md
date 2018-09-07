@@ -80,3 +80,106 @@ rest参数和arguments对象的区别
 (function(...a) {}).length // 0
 (function(a, ...b) {}).length // 1
 ```
+
+## 模板字符串
+**基础用法**
+```js
+let message = `hello message`;
+console.log(message);  //hello message
+
+// 可用\ 转义
+let message1 = `hello \` messsage`;
+console.log(message1); //hello ` messsage
+
+//在模板字符串中，空格、缩进、换行都会被保留, 可用trim()函数取消换行
+let message2 = `
+	<ul>
+		<li>1</li>
+		<li>2</li>
+	</ul>
+`.trim();
+console.log(message2); 
+/*
+	<ul>
+		<li>1</li>
+		<li>2</li>
+	</ul>
+*/
+```
+
+**嵌入变量**
+```js
+let name = '哈哈';
+let age = 18;
+let message = `${name} is ${age} years old`;
+
+//支持嵌套
+let  arr = [{value: 1}, {value: 2}];
+let message1 = `
+  <ul>
+    ${arr.map(item => {
+        return `
+          <li>${item.value}</li>
+        `
+    })}
+  </ul>
+`
+console.log(message1);
+/*
+  <ul>
+    <li>1</li>
+    ,
+    <li>2</li>
+  </ul
+*/
+//map() 返回一个数组 [<li>1</li>, <li>2</li>]， 为了防止逗号的产生，可先用join() 将数组拼接为字符串
+//当大括号中的值不是字符串时，会将其转为字符串，比如一个数组 [1, 2, 3] 就会被转为 1,2,3 ， 逗号就是这么出现的
+
+```
+
+**标签模板**
+模板字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串
+```js
+let x = 'Hi', y = 'Anegllina';
+var res = fun`${x}, I am ${y}`;
+console.log(res)
+
+function fun(literals, v1, v2) {
+  console.log(literals); //["", ", I am ", ""]
+  console.log(v1); //Hi -- ${x}
+  console.log(v2); //Angellina  -- ${y}
+  
+  let result = literals.reduce((prev, next, i) => {
+	    let value = values[i - 1];
+	    return prev + value + next;
+	});
+
+	return result;
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
