@@ -20,9 +20,11 @@
 ## 对象的扩展
 ![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Object.png)
 
-***
+## Set和Map
+![Set和Map](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Set-Map.svg)
+
 ## Promise
-![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
+![Promise](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
 ```js
 const promise = new Promise ((resolve, rereject) => {
   if (/* 异步操作成功 */){
@@ -38,7 +40,6 @@ promise.then((value) => {
   // failure
 });
 ```
-
 
 ## 扩展运算符 和 rest参数
 
