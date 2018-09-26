@@ -22,6 +22,7 @@
 
 ***
 ## Promise
+![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
 ```js
 const promise = new Promise ((resolve, rereject) => {
   if (/* 异步操作成功 */){
@@ -37,7 +38,6 @@ promise.then((value) => {
   // failure
 });
 ```
-![对象的扩展](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.png)
 
 
 ## 扩展运算符 和 rest参数
