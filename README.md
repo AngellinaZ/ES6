@@ -5,7 +5,7 @@
 ![const](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/const.png)
 
 ## destructuring
-* 规则：解构赋值的规则是，只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错。
+规则：只要等号右边的值不是对象或数组，就先将其转为对象。由于undefined和null无法转为对象，所以对它们进行解构赋值，都会报错。
 ![变量的解构赋值](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/destructuring.png)
 
 ## 字符串的扩展
@@ -41,20 +41,21 @@ promise.then((value) => {
 });
 ```
 
+***
 ## 扩展运算符 和 rest参数
 
 ### 扩展运算符
 > 扩展运算符可以看做是 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
 ```js
-console.log(...'22') //2 2
-console.log([...'22']) //[2,2]
+console.log(...'22') //单个字符 2 2
+console.log([...'22']) //数组 [2,2]
 ```
 
 ### rest参数： ...变量
-> 用于获取函数多余的变量，可不使用arguments对象
+> 用于获取函数多余的变量，可不使用 arguments 对象
 
-rest参数和arguments对象的区别 
- 1. rest参数只包含那些没有对应形参的实参；而 arguments 对象包含了传给函数的所有实参。
+rest 参数和 arguments 对象的区别 
+ 1. rest 参数只包含那些没有对应形参的实参；而 arguments 对象包含了传给函数的所有实参。
  2. arguments 对象不是一个真实的数组；而rest参数是真实的 Array 实例，也就是说你能够在它上面直接使用所有的数组方法。
  3. arguments 对象对象还有一些附加的属性 (比如callee属性)。
 
@@ -81,7 +82,7 @@ rest参数和arguments对象的区别
 
 ***
 ## 模板字符串
-**基础用法**
+**1.基础用法**
 ```js
 let message = `hello message`;
 console.log(message);  //hello message
@@ -106,7 +107,7 @@ console.log(message2);
 */
 ```
 
-**嵌入变量**
+**2.嵌入变量**
 ```js
 let name = '哈哈';
 let age = 18;
@@ -136,7 +137,7 @@ console.log(message1);
 
 ```
 
-**标签模板**
+**3.标签模板**
 
 模板字符串可以紧跟在一个函数名后面，该函数将被调用来处理这个模板字符串
 ```js
@@ -161,7 +162,7 @@ function fun(literals, v1, v2) {
 ***
 ## 箭头函数
 
-(参考：讶羽)[https://github.com/mqyqingfeng/Blog/issues/85]
+[参考：讶羽](https://github.com/mqyqingfeng/Blog/issues/85)
 
 ### 基本
 ```js
