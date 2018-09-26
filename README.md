@@ -1,5 +1,3 @@
-﻿# ES6
-
 ## let
 ![let](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/let.png)
 
