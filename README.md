@@ -42,16 +42,90 @@ promise.then((value) => {
 ```
 
 ***
+## Iterator 与 for of
+[讶羽：迭代器与for of](https://github.com/mqyqingfeng/Blog/issues/90)
+
+**Iterator（遍历器）的概念**
+Iterator 返回一个包含 next() 方法的对象，调用next()，得到一个描述对象{value: '值', done: 是否结束 false/true}
+
+ES2015模拟：
+```js
+function makeIterator(arr) {
+	var i = 0;
+	return {
+		next: function() {
+		  return i < arr.length ?
+			{value: arr[i++], done: false} :
+			{value: undefined, done: true};
+    	}
+	}
+}
+var it = makeIterator(['a', 'b']);
+
+console.log(it.next()); // { value: "a", done: false }
+console.log(it.next()); // { value: "b", done: false }
+console.log(it.next()); // { value: undefined, done: true }
+```
+
+**for of**
+遍历迭代器对象的方式，任何数据结构只要部署了 Iterator 接口，就可以完成遍历操作
+
+ES6 规定，默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性，或者说，一个数据结构只要具有 Symbol.iterator 属性，就可以认为是"可遍历的"（iterable）。
+
+```js
+var obj = {
+	value: 1
+};
+
+/*
+* 报错： obj is not iterable
+for(let v of obj) {
+	console.log(v)
+}*/
+
+obj[Symbol.iterator] = function () {
+	return makeIterator(['a', 'b']); //返回一个遍历器对象, 该对象有next()方法，调用方法返回当前成员信息
+}
+
+for(let v of obj) {
+	console.log(v)
+}
+
+//a
+//b
+```
+
+默认可遍历对象：
+* 数组
+* Set
+* Map
+* 类数组对象，如 arguments 对象、DOM NodeList 对象
+* Generator 对象
+* 字符串
+
+```js
+//数组
+let arr = ['a', 'b', 'c'];
+let iter = arr[Symbol.iterator]();
+
+for(let i of iter) {
+  console.log(i)
+}
+```
+
+
+
+***
 ## 扩展运算符 和 rest参数
 
-### 扩展运算符
+**扩展运算符**
 > 扩展运算符可以看做是 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列。
 ```js
 console.log(...'22') //单个字符 2 2
 console.log([...'22']) //数组 [2,2]
 ```
 
-### rest参数： ...变量
+**rest参数： ...变量**
 > 用于获取函数多余的变量，可不使用 arguments 对象
 
 rest 参数和 arguments 对象的区别 
