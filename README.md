@@ -112,7 +112,6 @@ promise.then((value) => {
 });
 ```
 
-***
 ## Iterator 与 for of
 [讶羽：迭代器与for of](https://github.com/mqyqingfeng/Blog/issues/90)
 
@@ -186,7 +185,7 @@ for(let i of iter) {
 }
 ```
 
-***
+
 ## 模板字符串
 **1.基础用法**
 ```js
@@ -265,7 +264,7 @@ function fun(literals, v1, v2) {
 }
 ```
 
-***
+
 ## 箭头函数
 
 [参考：讶羽](https://github.com/mqyqingfeng/Blog/issues/85)
@@ -369,7 +368,7 @@ obj.c();
 // 10, Object {...}
 ```
 
-***
+
 ## async await 异步
 async函数返回一个promise对象, 通过调用then(), 获取返回值
 ```js
@@ -398,9 +397,3 @@ async getFaceResult () {
 }
 ```
 
-***
-showNum(j) {
-    return function () {
-        console.log(j)
-    }
-}
