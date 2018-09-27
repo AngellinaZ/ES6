@@ -1,6 +1,34 @@
 ## let
 ![let](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/let.png)
 
+面试常见题，循环打印出 0 1 2
+```js
+for (var i = 0; i < 3; i++) {
+    setTimeout(function () {
+        console.log(i)
+    }, 100)
+}
+//3 3 3
+```
+
+方法1：立刻执行函数
+```js
+for (var i = 0; i < 3; i++) {
+    setTimeout(function showNum(j) {
+      console.log(j)
+    }(i),100)
+}
+```
+方法2： let 
+```js
+for (let i = 0; i < 3; i++) {
+   setTimeout(function () {
+        console.log(i)
+    }, 100)
+}
+```
+
+
 ## const
 ![const](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/const.png)
 
@@ -58,6 +86,13 @@ rest 参数和 arguments 对象的区别
 
 ## Set和Map
 ![Set和Map](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Set-Map.svg)
+
+Set本身是一个构造函数，它类似于数组，但是成员值都是唯一的
+```js
+//去重
+const set = new Set([1, 2, 3, 4, 4]);
+[...set] //1, 2, 3, 4
+```
 
 ## Promise
 ![Promise](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
@@ -316,10 +351,11 @@ console.log(Foo.prototype); // undefined
 关于箭头函数，引用 MDN 的介绍就是：
 > An arrow function expression has a shorter syntax than a function expression and does not have its own this, arguments, super, or new.target. These function expressions are best suited for non-method functions, and they cannot be used as constructors.
 
-什么是 non-method functions? 非方法函数
+什么是 non-method functions? 非方法函数?
 
-方法： 一个函数作为一个对象的属性值。
+什么是方法，当 一个函数作为一个对象的属性值 时，称之为方法函数。
 ```js
+//动态上下文时不使用箭头函数, this指向定义时所在的对象(父作用域), 而不是使用时的对象
 var obj = {
   i: 10,
   b: () => console.log(this.i, this),
@@ -333,3 +369,38 @@ obj.c();
 // 10, Object {...}
 ```
 
+***
+## async await 异步
+async函数返回一个promise对象, 通过调用then(), 获取返回值
+```js
+async function eg() {
+  return 'this is an egg';
+}
+console.log(eg()); // Promise {<resolved>: "this is an egg"}
+eg().then(res => {
+  console.log(res); // this is an egg
+})
+
+async getFaceResult () {
+    try {
+        let location = await this.getLocation(this.phoneNum);  //等拿到location后在执行下一步
+        if (location.data.success) {
+            let province = location.data.obj.province;
+            let city = location.data.obj.city;
+            let result = await this.getFaceList(province, city);
+            if (result.data.success) {
+                this.faceList = result.data.obj;
+            }
+        }
+    } catch(err) {
+        console.log(err);
+    }
+}
+```
+
+***
+showNum(j) {
+    return function () {
+        console.log(j)
+    }
+}
