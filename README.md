@@ -118,26 +118,48 @@ const set = new Set([1, 2, 3, 4, 4]);
 
 ## Promise
 ![Promise](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
+```js
+promise
+.then(result => {···})
+.catch(error => {···})
+.finally(() => {···});
+```
 
 ES6 规定，Promise对象是一个构造函数，用来生成Promise实例;
 ```js
 const promise = new Promise ((resolve, rereject) => {
   if (/* 异步操作成功 */){
-//函数 resolve, 将Promise对象的状态从“未完成”变为“成功”（pending -> resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去
-    return resolve(value); 
+  	// 函数 resolve, 将Promise对象的状态从“未完成”变为“成功”（pending -> resolved）
+  	// 在异步操作成功时调用，并将异步操作的结果，作为参数传递出去
+  	return resolve(value); 
+	
   } else {
-//函数 reject, 将Promise对象的状态从“未完成”变为“失败”（pending -> rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去
-    return reject(error);
+  	//函数 reject, 将Promise对象的状态从“未完成”变为“失败”（pending -> rejected）
+  	//在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去
+    return reject(error); //抛出错误
   }
 })
 
-//then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。
-//then 方法的参数：第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数(可选)是Promise对象的状态变为rejected时调用。
-//这两个函数都接受Promise对象传出的值作为参数。
-promise.then((value) => {
+
+//then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）
+/*
+then 方法的参数：
+	第一个回调函数是Promise对象的状态变为resolved时调用，
+	第二个回调函数(可选, 不推荐)是Promise对象的状态变为rejected时调用。
+	这两个函数都接受Promise对象传出的值作为参数。
+*/
+//bad  
+promise.then(value => {
   // success
-}, (error) => {
+}, error => {
   // failure
+});
+
+//good
+promise.then(function(data) { //cb
+	// success
+}).catch(function(err) {
+	// error
 });
 ```
 
@@ -157,6 +179,17 @@ console.log('Hi!'); //同步任务
 // Promise 
 // Hi!
 // resolved
+```
+
+下面代码一共有三个 Promise 对象：一个由getJSON产生，两个由then产生。它们之中任何一个抛出的错误，都会被最后一个catch捕获。
+```js
+getJSON('/post/1.json').then(function(post) {
+  return getJSON(post.commentURL);
+}).then(function(comments) {
+  // some code
+}).catch(function(error) {
+  // 处理前面三个Promise产生的错误
+});
 ```
 
 ## Iterator 与 for of
