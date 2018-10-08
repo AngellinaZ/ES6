@@ -6,26 +6,48 @@
 for (var i = 0; i < 3; i++) {
     setTimeout(function () {
         console.log(i)
-    }, 100)
+    }, 1000)
 }
-//3 3 3
+console.log(i)
+//3 3 3 3
 ```
+实际上，第一个 3 打印出来 1s 之后，剩余的三个 3 才同时出来。[定时器工作机制](https://johnresig.com/blog/how-javascript-timers-work/)，在循环执行过程中，几乎同时设置了三个定时器，一般情况下，这些定时器都会在 1 秒之后触发，而循环完的输出是立即执行的，所以： 3 (1s) 3 3 3
 
-方法1：立刻执行函数
+方法1：立刻执行函数(IIFE)
 ```js
 for (var i = 0; i < 3; i++) {
-    setTimeout(function showNum(j) {
-      console.log(j)
-    }(i),100)
+	(function(j) {
+		setTimeout(function() {
+			console.log(j)
+		},1000)
+	})(i)
 }
+console.log(i)
+//3 0 1 2
 ```
-方法2： let 
+
+方法2： 基本类型（Primitive Type）的参数传递是按值传递（Pass by Value）
+```js
+var fun = function (i) {
+	setTimeout(function () {
+		console.log(i)
+	}, 1000)
+}
+for (var i = 0; i < 3; i++) {
+	fun(i);
+}
+console.log(i)
+//3 0 1 2
+```
+
+方法3： let块级作用域
 ```js
 for (let i = 0; i < 3; i++) {
    setTimeout(function () {
-        console.log(i)
-    }, 100)
+        console.log(i) // 0 1 2
+    }, 1000)
 }
+console.log(i) //'error': i is not define
 ```
 
 
@@ -96,20 +118,45 @@ const set = new Set([1, 2, 3, 4, 4]);
 
 ## Promise
 ![Promise](https://github.com/AngellinaZ/ES6/blob/master/Mind-mapping/Promise.svg)
+
+ES6 规定，Promise对象是一个构造函数，用来生成Promise实例;
 ```js
 const promise = new Promise ((resolve, rereject) => {
   if (/* 异步操作成功 */){
-    return resolve(value);
+//函数 resolve, 将Promise对象的状态从“未完成”变为“成功”（pending -> resolved），在异步操作成功时调用，并将异步操作的结果，作为参数传递出去
+    return resolve(value); 
   } else {
+//函数 reject, 将Promise对象的状态从“未完成”变为“失败”（pending -> rejected），在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去
     return reject(error);
   }
 })
 
+//then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）。
+//then 方法的参数：第一个回调函数是Promise对象的状态变为resolved时调用，第二个回调函数(可选)是Promise对象的状态变为rejected时调用。
+//这两个函数都接受Promise对象传出的值作为参数。
 promise.then((value) => {
   // success
 }, (error) => {
   // failure
 });
+```
+
+Promise 新建后就会立即执行。
+```js
+let promise = new Promise(function(resolve, reject) {
+  console.log('Promise'); //Promise 新建后就会立即执行。
+  resolve();
+});
+
+promise.then(function() {
+  console.log('resolved.'); //将在当前脚本所有同步任务执行完才会执行
+});
+
+console.log('Hi!'); //同步任务
+
+// Promise 
+// Hi!
+// resolved
 ```
 
 ## Iterator 与 for of
